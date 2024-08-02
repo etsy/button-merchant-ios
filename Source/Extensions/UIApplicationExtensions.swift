@@ -24,9 +24,16 @@
 
 import UIKit
 
+
 internal protocol UIApplicationType {
+#if canImport(Testing)
+    @available(iOS 10.0, *)
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: (@MainActor @Sendable (Bool) -> Void)?)
+#else
     @available(iOS 10.0, *)
     func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?)
+#endif
+    
     func quit()
 }
 
